@@ -35,11 +35,11 @@ public:
     }
 
     // TODO: change output container
-    void getByManufacturer(const std::string& m, std::unordered_map<std::string, Product>& out) const {
+    void getByManufacturer(const std::string& m, std::vector<std::pair<std::string, Product>>& out) const {
       
         std::unique_lock<decltype(m_wlock)> lock(m_wlock);
         
-        std::copy_if(m_data.cbegin(), m_data.cend(), std::inserter(out, std::next(out.begin())),
+        std::copy_if(m_data.cbegin(), m_data.cend(), out.begin(),
                 [&m](const std::pair<std::string, Product>& r){
             return (r.second.getManufacturer() == m);
         });
